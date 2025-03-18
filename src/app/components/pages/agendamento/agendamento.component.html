@@ -11,6 +11,7 @@
           [(ngModel)]="cliente.nome"
           required
           #nome="ngModel"
+          placeholder="Digite seu nome..."
         />
       </div>
 
@@ -24,6 +25,7 @@
           required
           email
           #email="ngModel"
+          placeholder="Digite seu email..."
         />
       </div>
 
@@ -36,6 +38,9 @@
           [(ngModel)]="cliente.telefone"
           required
           #telefone="ngModel"
+          placeholder="(99)99999-9999"
+          maxlength="15"
+          
         />
       </div>
 
@@ -51,16 +56,18 @@
         />
       </div>
 
-      <div class="form-group">
-        <label for="horario">Horário da Sessão</label>
-        <input
-          type="time"
+      <div>
+        <label for="horario">Horário:</label>
+        <select
           id="horario"
-          name="horario"
           [(ngModel)]="cliente.horario"
+          name="horario"
           required
-          #horario="ngModel"
-        />
+        >
+          <option *ngFor="let horario of horarios" [value]="horario">
+            {{ horario }}
+          </option>
+        </select>
       </div>
 
       <button type="submit" [disabled]="agendamentoForm.invalid">

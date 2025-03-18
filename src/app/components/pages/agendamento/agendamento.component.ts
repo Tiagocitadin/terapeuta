@@ -25,25 +25,47 @@ export class AgendamentoComponent {
     '2025-11-02',  // Finados
     '2025-11-15',  // Proclamação da República
     '2025-12-25'   // Natal
-  ]
+  ];
 
-  constructor(private agendamentoService: AgendamentoService) {}
+  horarios: string[] = [];
 
+  constructor(
+    private agendamentoService: AgendamentoService,
+    
+  ) {
+    this.gerarHorarios();
+  }
+
+  // Função para gerar os horários de agendamento
+  gerarHorarios() {
+    const horaInicio = 8; // Hora de início (08:00)
+    const horaFim = 17;   // Hora de término (17:00)
+    const intervalo = 30;  // Intervalo de 30 minutos
+
+    // Gerar os horários de 30 em 30 minutos
+    for (let h = horaInicio; h <= horaFim; h++) {
+      for (let m = 0; m < 60; m += intervalo) {
+        const horaFormatada = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        this.horarios.push(horaFormatada);
+      }
+    }
+  }
+
+  // Função para enviar o formulário de agendamento
   enviarFormulario() {
-    // Verificar se a data é válida (não pode ser fim de semana, feriado ou data inferior a 3 dias)
+    // Verificar se a data é válida (não pode ser fim de semana, feriado ou inferior a 3 dias)
     if (this.isDataValida(this.cliente.data)) {
+      // Verificar se todos os campos estão preenchidos
       if (this.cliente.nome && this.cliente.email && this.cliente.telefone && this.cliente.data && this.cliente.horario) {
+
+        // Enviar o agendamento para o serviço
         this.agendamentoService.agendarSessao(this.cliente).subscribe(
           response => {
             alert('Sessão agendada com sucesso!');
-            this.limparFormulario(); // Limpa o formulário após o envio
+            this.limparFormulario(); // Limpar o formulário após o envio
           },
           error => {
-            if (error.status === 400) {
-              alert('Já existe um agendamento para esta data e horário.');
-            } else {
-              alert('Ocorreu um erro ao agendar a sessão.');
-            }
+            alert('Ocorreu um erro ao agendar a sessão.');
             console.error('Erro:', error);
           }
         );
@@ -55,7 +77,7 @@ export class AgendamentoComponent {
     }
   }
 
-  // Função para verificar se a data de agendamento é válida (não pode ser fim de semana, feriado ou inferior a 3 dias)
+  // Função para verificar se a data de agendamento é válida
   isDataValida(data: string): boolean {
     const dataAtual = new Date();
     const dataConsulta = new Date(data);
@@ -90,6 +112,7 @@ export class AgendamentoComponent {
     return true;  // Data válida (não é fim de semana, feriado ou inferior a 3 dias)
   }
 
+  // Função para limpar o formulário após o envio
   limparFormulario() {
     this.cliente = {
       nome: '',
