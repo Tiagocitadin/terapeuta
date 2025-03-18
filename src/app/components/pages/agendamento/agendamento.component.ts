@@ -15,22 +15,64 @@ export class AgendamentoComponent {
     horario: ''
   };
 
-  feriados = [
-    '2025-01-01',  // Ano Novo
-    '2025-02-25',  // Carnaval
-    '2025-04-21',  // Tiradentes
-    '2025-05-01',  // Dia do Trabalhador
-    '2025-09-07',  // Independência do Brasil
-    '2025-10-12',  // Nossa Senhora Aparecida
-    '2025-11-02',  // Finados
-    '2025-11-15',  // Proclamação da República
-    '2025-12-25'   // Natal
-  ];
-
+  feriados: string[] = [];
   horarios: string[] = [];
 
   constructor(private agendamentoService: AgendamentoService) {
+    this.gerarFeriados();
     this.gerarHorarios();
+  }
+
+  // Função para gerar os feriados do ano atual
+  gerarFeriados() {
+    const anoAtual = new Date().getFullYear();
+    this.feriados = [
+      `${anoAtual}-01-01`,  // Ano Novo
+      this.calcularCarnaval(anoAtual),  // Carnaval
+      `${anoAtual}-04-21`,  // Tiradentes
+      `${anoAtual}-05-01`,  // Dia do Trabalhador
+      this.calcularCorpusChristi(anoAtual),  // Corpus Christi
+      `${anoAtual}-09-07`,  // Independência do Brasil
+      `${anoAtual}-10-12`,  // Nossa Senhora Aparecida
+      `${anoAtual}-11-02`,  // Finados
+      `${anoAtual}-11-15`,  // Proclamação da República
+      `${anoAtual}-12-25`   // Natal
+    ];
+  }
+
+  // Função para calcular o Carnaval (47 dias antes da Páscoa)
+  calcularCarnaval(ano: number): string {
+    const pascoa = this.calcularPascoa(ano);
+    const carnaval = new Date(pascoa);
+    carnaval.setDate(pascoa.getDate() - 47); // Carnaval é 47 dias antes da Páscoa
+    return carnaval.toISOString().split('T')[0];
+  }
+
+  // Função para calcular Corpus Christi (60 dias após a Páscoa)
+  calcularCorpusChristi(ano: number): string {
+    const pascoa = this.calcularPascoa(ano);
+    const corpusChristi = new Date(pascoa);
+    corpusChristi.setDate(pascoa.getDate() + 60); // Corpus Christi é 60 dias após a Páscoa
+    return corpusChristi.toISOString().split('T')[0];
+  }
+
+  // Função para calcular a data da Páscoa
+  calcularPascoa(ano: number): Date {
+    const a = ano % 19;
+    const b = Math.floor(ano / 100);
+    const c = ano % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const mes = Math.floor((h + l - 7 * m + 114) / 31);
+    const dia = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(ano, mes - 1, dia);
   }
 
   // Função para gerar os horários de agendamento
@@ -82,6 +124,7 @@ export class AgendamentoComponent {
     }
   }
 
+  // Função para validar a data
   validarData(data: string): string | null {
     const dataAtual = new Date();
     const dataConsulta = new Date(data);
@@ -112,9 +155,7 @@ export class AgendamentoComponent {
     }
 
     return null; // Retorna null se a data for válida
-}
-
-
+  }
 
   // Função para limpar o formulário após o envio
   limparFormulario() {
