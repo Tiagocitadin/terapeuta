@@ -1,1 +1,22 @@
-<p>depoimentos works!</p>
+<section class="testimonials">
+    <div class="container">
+      <h3>O que dizem os clientes</h3>
+      
+      <!-- Lista de depoimentos dinâmicos -->
+      <div *ngFor="let depoimento of depoimentos">
+        <blockquote>
+          "{{ depoimento.texto }}"
+          <cite>- {{ depoimento.autor }}</cite>
+        </blockquote>
+      </div>
+  
+      <!-- Formulário para adicionar depoimento -->
+      <div class="depoimento-form">
+        <h3>Deixe seu depoimento:</h3>
+        <textarea [(ngModel)]="novoDepoimento.texto" placeholder="Digite seu depoimento"></textarea>
+        <input [(ngModel)]="novoDepoimento.autor" placeholder="Seu nome" />
+        <button (click)="adicionarDepoimento()">Enviar</button>
+      </div>
+    </div>
+  </section>
+  

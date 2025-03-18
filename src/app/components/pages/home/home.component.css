@@ -69,17 +69,3 @@
     width: 30%;
     text-align: center;
   }
-  
-  blockquote {
-    font-style: italic;
-    background: #f4f4f4;
-    padding: 20px;
-    border-left: 5px solid #4CAF50;
-    display: inline-block;
-  }
-  
-  cite {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-  }
