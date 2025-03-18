@@ -1,0 +1,71 @@
+<section id="agendamento" class="agendamento">
+  <div class="container">
+    <h2>Agende Sua Sessão</h2>
+    <form (ngSubmit)="enviarFormulario()" #agendamentoForm="ngForm">
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          [(ngModel)]="cliente.nome"
+          required
+          #nome="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="cliente.email"
+          required
+          email
+          #email="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input
+          type="text"
+          id="telefone"
+          name="telefone"
+          [(ngModel)]="cliente.telefone"
+          required
+          #telefone="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="data">Data da Sessão</label>
+        <input
+          type="date"
+          id="data"
+          name="data"
+          [(ngModel)]="cliente.data"
+          required
+          #data="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="horario">Horário da Sessão</label>
+        <input
+          type="time"
+          id="horario"
+          name="horario"
+          [(ngModel)]="cliente.horario"
+          required
+          #horario="ngModel"
+        />
+      </div>
+
+      <button type="submit" [disabled]="agendamentoForm.invalid">
+        Agendar Sessão
+      </button>
+    </form>
+  </div>
+</section>
