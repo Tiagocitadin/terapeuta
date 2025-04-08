@@ -1,4 +1,5 @@
-<section class="testimonials">
+<div class="container">
+  <section class="testimonials">
     <div class="container">
       <h3>O que dizem os clientes</h3>
       
@@ -15,8 +16,12 @@
         <h3>Deixe seu depoimento:</h3>
         <textarea [(ngModel)]="novoDepoimento.texto" placeholder="Digite seu depoimento"></textarea>
         <input [(ngModel)]="novoDepoimento.autor" placeholder="Seu nome" />
-        <button (click)="adicionarDepoimento()">Enviar</button>
+        <button class="btn" (click)="adicionarDepoimento()">Enviar</button>
       </div>
     </div>
   </section>
   
+
+
+
+</div>

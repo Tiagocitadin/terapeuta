@@ -1,13 +1,15 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    box-sizing: border-box;
-    color: #444;
+    width: 100%;
+    max-width: 100%;
 }
 
 .container {
     min-height: 65vh;
-    margin-top: 1em;
+    margin-top: 1em;   
   
 }
+
+
+
