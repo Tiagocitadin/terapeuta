@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +6,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
-  whatsappNumber = environment.whatsappNumber;
-  mensagemPadrao = environment.mensagemPadrao;
-  instagramUser = environment.instagramUser;
+ 
+  mensagemPadrao = "ola vim pelo instagram";
+  whatsappNumber = 5548999548935
+  instagramUser = 'https://www.instagram.com/tiago.citadin/'
+  
 
   get whatsappLink(): string {
     const textoCodificado = encodeURIComponent(this.mensagemPadrao);

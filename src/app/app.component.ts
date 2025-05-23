@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,4 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent {
   title = 'Terapeuta';
-
-  whatsappNumber = environment.whatsappNumber;
-  instagramUser = environment.instagramUser;
-  mensagemPadrao = environment.mensagemPadrao;
 }
